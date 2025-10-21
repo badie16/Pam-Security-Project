@@ -1,5 +1,20 @@
 # Guide d'Utilisation - Projet PAM
 
+## Table des Matières
+
+1. [Démarrage Rapide](#démarrage-rapide)
+2. [Cas d'Usage](#cas-dusage)
+   - [Cas 1 : Ajouter un Nouvel Utilisateur](#cas-1--ajouter-un-nouvel-utilisateur-au-groupe-allowed)
+   - [Cas 2 : Modifier les Limites de Ressources](#cas-2--modifier-les-limites-de-ressources)
+   - [Cas 3 : Ajouter une Nouvelle Règle d'Accès](#cas-3--ajouter-une-nouvelle-règle-daccès)
+   - [Cas 4 : Monitorer les Tentatives d'Authentification](#cas-4--monitorer-les-tentatives-dauthentification)
+3. [Dépannage](#dépannage)
+4. [Commandes Utiles](#commandes-utiles)
+5. [Nettoyage](#nettoyage)
+6. [Support](#support)
+
+---
+
 ## Démarrage Rapide
 
 ### 1. Installation Complète
@@ -196,6 +211,13 @@ sudo bash scripts/cleanup.sh
 
 Pour plus d'informations, consultez :
 
-- README.md : Guide d'utilisation général
-- DOCUMENTATION.md : Documentation technique détaillée
-- RAPPORT_RESULTATS.md : Résultats des tests et audit
+- **[INDEX.md](INDEX.md)** - Navigation et guide de lecture
+- **[README.md](README.md)** - Guide d'utilisation général
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Documentation technique détaillée
+- **[RAPPORT_RESULTATS.md](RAPPORT_RESULTATS.md)** - Résultats des tests et audit
+
+---
+
+**Dernière mise à jour** : 2025-01-21  
+**Version** : 1.0  
+**Auteur** : Badie BAHIDA

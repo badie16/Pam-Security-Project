@@ -1,5 +1,18 @@
 # Rapport de Résultats - Projet PAM
 
+## Table des Matières
+
+1. [Résumé Exécutif](#résumé-exécutif)
+2. [Architecture Implémentée](#1-architecture-implémentée)
+3. [Configuration Détaillée](#2-configuration-détaillée)
+4. [Utilisateurs de Test](#3-utilisateurs-de-test)
+5. [Résultats des Tests](#4-résultats-des-tests)
+6. [Audit de Sécurité](#5-audit-de-sécurité)
+7. [Instructions d'Installation](#9-instructions-dinstallation)
+8. [Conclusion](#10-conclusion)
+
+---
+
 ## Résumé Exécutif
 
 Ce projet a mis en place avec succès un système de sécurité PAM (Pluggable Authentication Modules) sous Linux avec gestion des groupes d'utilisateurs et contrôle d'accès granulaire.
@@ -402,6 +415,16 @@ La configuration PAM est simple, flexible et facilement extensible pour des beso
 
 ---
 
-**Date du rapport** : 2025-10-21  
-**Auteur** : Badie BAHIDA 
+## 📚 Navigation
+
+- **[INDEX.md](INDEX.md)** - Navigation et guide de lecture
+- **[README.md](README.md)** - Vue d'ensemble du projet
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Documentation technique détaillée
+- **[GUIDE_UTILISATION.md](GUIDE_UTILISATION.md)** - Guide pratique pour les utilisateurs
+
+---
+
+**Date du rapport** : 2025-01-21  
+**Auteur** : Badie BAHIDA  
+**Version** : 1.0  
 **Statut** : ✓ Complété avec succès

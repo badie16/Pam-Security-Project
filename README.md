@@ -1,5 +1,22 @@
 # Projet de Sécurité PAM - Vérification des Utilisateurs Locaux
 
+## Table des Matières
+
+1. [Objectif](#objectif)
+2. [Architecture du Projet](#architecture-du-projet)
+   - [Composants Principaux](#1-composants-principaux)
+   - [Choix Techniques](#2-choix-techniques)
+   - [Structure des Groupes](#3-structure-des-groupes)
+   - [Fichiers de Configuration PAM](#4-fichiers-de-configuration-pam)
+   - [Flux d'Authentification](#5-flux-dauthentification)
+3. [Installation et Configuration](#installation-et-configuration)
+4. [Résultats Attendus](#résultats-attendus)
+5. [Fichiers du Projet](#fichiers-du-projet)
+6. [Sécurité](#sécurité)
+7. [Conclusion](#conclusion)
+
+---
+
 ## Objectif
 
 Mettre en place un système de contrôle d'accès basé sur PAM (Pluggable Authentication Modules) avec gestion des groupes d'utilisateurs et des permissions d'authentification.
@@ -190,3 +207,18 @@ pam-security-project/
 ## Conclusion
 
 Ce projet démontre comment mettre en place un système de sécurité robuste basé sur PAM avec gestion des groupes d'utilisateurs. La configuration est simple, flexible et facilement extensible.
+
+---
+
+##  Documentation Complète
+
+- **[INDEX.md](INDEX.md)** - Navigation et guide de lecture
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Documentation technique détaillée
+- **[GUIDE_UTILISATION.md](GUIDE_UTILISATION.md)** - Guide pratique pour les utilisateurs
+- **[RAPPORT_RESULTATS.md](RAPPORT_RESULTATS.md)** - Résultats des tests et audit
+
+---
+
+**Dernière mise à jour** : 2025-01-21  
+**Version** : 1.0  
+**Auteur** : Badie BAHIDA

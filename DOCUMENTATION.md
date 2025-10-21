@@ -1,5 +1,20 @@
 # Documentation Technique - Projet PAM
 
+## Table des Matières
+
+1. [Introduction à PAM](#1-introduction-à-pam)
+2. [Modules PAM Utilisés](#2-modules-pam-utilisés)
+3. [Configuration des Groupes](#3-configuration-des-groupes)
+4. [Configuration des Règles d'Accès](#4-configuration-des-règles-daccès)
+5. [Configuration des Limites de Ressources](#5-configuration-des-limites-de-ressources)
+6. [Flux d'Authentification Détaillé](#6-flux-dauthentification-détaillé)
+7. [Tests d'Authentification](#7-tests-dauthentification)
+8. [Sécurité et Bonnes Pratiques](#8-sécurité-et-bonnes-pratiques)
+9. [Dépannage](#9-dépannage)
+10. [Conclusion](#10-conclusion)
+
+---
+
 ## 1. Introduction à PAM
 
 ### Qu'est-ce que PAM ?
@@ -258,3 +273,18 @@ getent group allowed
 ## 10. Conclusion
 
 Ce projet démontre comment mettre en place un système de sécurité robuste basé sur PAM avec gestion des groupes d'utilisateurs. La configuration est simple, flexible et facilement extensible pour des besoins plus complexes.
+
+---
+
+## 📚 Navigation
+
+- **[INDEX.md](INDEX.md)** - Navigation et guide de lecture
+- **[README.md](README.md)** - Vue d'ensemble du projet
+- **[GUIDE_UTILISATION.md](GUIDE_UTILISATION.md)** - Guide pratique pour les utilisateurs
+- **[RAPPORT_RESULTATS.md](RAPPORT_RESULTATS.md)** - Résultats des tests et audit
+
+---
+
+**Dernière mise à jour** : 2025-01-21  
+**Version** : 1.0  
+**Auteur** : Badie BAHIDA
