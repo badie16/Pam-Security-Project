@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de nettoyage
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 
 echo "=========================================="
 echo "Nettoyage de la Configuration PAM"

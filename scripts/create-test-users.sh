@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de création des utilisateurs de test
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 
 set -e
 

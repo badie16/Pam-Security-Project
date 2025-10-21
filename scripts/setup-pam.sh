@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de configuration PAM pour la gestion des groupes d'utilisateurs
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 # Date: 2025
 
 set -e

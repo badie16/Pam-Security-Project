@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de validation de la configuration PAM
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 
 echo "=========================================="
 echo "Validation de la Configuration PAM"

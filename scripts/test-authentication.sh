@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de test d'authentification
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 
 echo "=========================================="
 echo "Tests d'Authentification PAM"

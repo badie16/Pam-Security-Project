@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de tests avancés d'authentification PAM
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 
 set -e
 

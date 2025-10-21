@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script d'audit de sécurité PAM
-# Auteur: Projet Sécurité Systèmes d'Exploitation
+# Auteur: 0xBadie
 
 AUDIT_FILE="results/security-audit.log"
 mkdir -p results
