@@ -119,7 +119,6 @@ Authentification réussie/échouée
 
 - Système Linux (Ubuntu/Debian ou CentOS/RHEL)
 - Accès root
-- Connaissance de base de Linux
 
 ### Étapes d'Installation
 

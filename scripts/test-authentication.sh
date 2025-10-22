@@ -26,16 +26,15 @@ test_auth() {
     
     # Tester avec su (substitute user)
     if echo "$password" | su - "$username" -c "echo 'Authentification réussie'" 2>/dev/null | grep -q "Authentification réussie"; then
-        result="✓ RÉUSSI"
+        result="RÉUSSI"
         status="SUCCESS"
     else
-        result="✗ ÉCHOUÉ"
+        result="ÉCHOUÉ"
         status="FAILED"
     fi
     
     echo "Résultat: $result"
     echo ""
-    
     # Enregistrer dans le fichier de résultats
     echo "[$status] $test_name - $username" >> "$RESULTS_FILE"
 }
@@ -59,8 +58,8 @@ echo ""
 for user in user_allowed user_denied user_admin; do
     if id "$user" &>/dev/null; then
         groups=$(id -Gn "$user")
-        echo "[✓] $user appartient aux groupes: $groups"
-        echo "[✓] Vérification des groupes - $user" >> "$RESULTS_FILE"
+        echo "$user appartient aux groupes: $groups"
+        echo "Vérification des groupes - $user" >> "$RESULTS_FILE"
     fi
 done
 
@@ -72,8 +71,8 @@ echo ""
 for user in user_allowed user_denied user_admin; do
     if id "$user" &>/dev/null; then
         limits=$(su - "$user" -c "ulimit -n" 2>/dev/null || echo "N/A")
-        echo "[✓] $user - Limite de fichiers ouverts: $limits"
-        echo "[✓] Limites de ressources - $user" >> "$RESULTS_FILE"
+        echo "$user - Limite de fichiers ouverts: $limits"
+        echo "Limites de ressources - $user" >> "$RESULTS_FILE"
     fi
 done
 
