@@ -12,8 +12,8 @@ RESULTS_FILE="results/test-results.log"
 mkdir -p results
 > "$RESULTS_FILE"
 
-# Fonction pour tester l'authentification
-test_auth() {
+# Fonction pour tester l'authentification SSH
+test_ssh_auth() {
     local username=$1
     local password=$2
     local expected=$3
@@ -24,8 +24,8 @@ test_auth() {
     echo "Utilisateur: $username"
     echo "Résultat attendu: $expected"
     
-    # Tester avec su (substitute user)
-    if echo "$password" | su - "$username" -c "echo 'Authentification réussie'" 2>/dev/null | grep -q "Authentification réussie"; then
+    # Tester avec SSH (utilise /etc/pam.d/sshd-custom)
+    if sshpass -p "$password" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$username@localhost" "echo 'Authentification réussie'" 2>/dev/null | grep -q "Authentification réussie"; then
         result="RÉUSSI"
         status="SUCCESS"
     else
@@ -43,14 +43,20 @@ test_auth() {
 echo "[*] Exécution des tests d'authentification..."
 echo ""
 
+# Vérifier si sshpass est installé
+if ! command -v sshpass &> /dev/null; then
+    echo "[!] sshpass n'est pas installé. Installation..."
+    apt-get update && apt-get install -y sshpass 2>/dev/null || yum install -y sshpass 2>/dev/null
+fi
+
 # Test 1: Utilisateur du groupe "allowed"
-test_auth "user_allowed" "password123" "RÉUSSI" "Authentification - Groupe allowed"
+test_ssh_auth "user_allowed" "password123" "RÉUSSI" "Authentification SSH - Groupe allowed"
 
 # Test 2: Utilisateur du groupe "denied"
-test_auth "user_denied" "password456" "ÉCHOUÉ" "Authentification - Groupe denied"
+test_ssh_auth "user_denied" "password456" "ÉCHOUÉ" "Authentification SSH - Groupe denied"
 
 # Test 3: Utilisateur du groupe "admin"
-test_auth "user_admin" "password789" "RÉUSSI" "Authentification - Groupe admin"
+test_ssh_auth "user_admin" "password789" "RÉUSSI" "Authentification SSH - Groupe admin"
 
 # Test 4: Vérifier les groupes
 echo "Test: Vérification des groupes"

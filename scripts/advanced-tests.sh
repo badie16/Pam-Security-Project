@@ -64,7 +64,7 @@ echo "=================================================="
 config_files=(
     "/etc/security/access.conf"
     "/etc/security/limits.conf"
-    "/etc/pam.d/sshd"
+    "/etc/pam.d/sshd-custom"
 )
 
 for file in "${config_files[@]}"; do
@@ -115,19 +115,61 @@ echo ""
 echo "[Test 6] Vérification de la configuration PAM"
 echo "=========================================="
 echo "[*] Modules PAM configurés pour SSH:"
-if [ -f /etc/pam.d/sshd ]; then
-    grep -E "^(auth|session|password)" /etc/pam.d/sshd | while read line; do
+if [ -f /etc/pam.d/sshd-custom ]; then
+    grep -E "^(auth|session|password)" /etc/pam.d/sshd-custom | while read line; do
         echo "    $line"
     done
     log_result "Configuration PAM" "PASS"
 else
-    echo "[✗] Fichier /etc/pam.d/sshd non trouvé"
+    echo "[✗] Fichier /etc/pam.d/sshd-custom non trouvé"
     log_result "Configuration PAM" "FAIL"
 fi
 echo ""
 
-# Test 7: Vérifier les logs d'authentification
-echo "[Test 7] Vérification des logs d'authentification"
+# Test 7: Tester l'accès SSH pour chaque utilisateur
+echo "[Test 7] Test d'accès SSH (Contrôle d'accès)"
+echo "=========================================="
+
+# Vérifier si sshpass est installé
+if ! command -v sshpass &> /dev/null; then
+    echo "[!] sshpass n'est pas installé. Installation..."
+    apt-get update && apt-get install -y sshpass 2>/dev/null || yum install -y sshpass 2>/dev/null || true
+fi
+
+for user in user_allowed user_denied user_admin; do
+    if id "$user" &>/dev/null; then
+        case "$user" in
+            user_allowed|user_admin)
+                expected="AUTORISÉ"
+                ;;
+            user_denied)
+                expected="REFUSÉ"
+                ;;
+        esac
+        
+        echo "[*] Test SSH pour '$user' (attendu: $expected)"
+        
+        if sshpass -p "password123" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$user@localhost" "echo 'OK'" 2>/dev/null | grep -q "OK"; then
+            result="AUTORISÉ"
+            status="PASS"
+        else
+            result="REFUSÉ"
+            status="PASS"
+        fi
+        
+        if [ "$result" = "$expected" ]; then
+            echo "    [✓] Résultat correct: $result"
+            log_result "Accès SSH - $user" "PASS" "$result (comme prévu)"
+        else
+            echo "    [✗] Résultat incorrect: $result (attendu: $expected)"
+            log_result "Accès SSH - $user" "FAIL" "$result (attendu: $expected)"
+        fi
+    fi
+done
+echo ""
+
+# Test 8: Vérifier les logs d'authentification
+echo "[Test 8] Vérification des logs d'authentification"
 echo "=============================================="
 if [ -f /var/log/auth.log ]; then
     echo "[✓] Logs d'authentification disponibles"
