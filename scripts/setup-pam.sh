@@ -94,7 +94,7 @@ auth       required     pam_access.so
 session    required     pam_limits.so
 session    required     pam_unix.so
 # Mots de passe
-password   required     pam_unix.so obscure sha512 rounds=5000000
+password   required     pam_unix.so obscure sha512 rounds=5000
 EOF
 echo "[✓] Configuration PAM pour SSH créée"
 
