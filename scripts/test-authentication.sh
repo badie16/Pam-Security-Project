@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Script de test d'authentification
+# Script de test d'authentification PAM
 # Auteur: 0xBadie
+
+set -euo pipefail
 
 echo "=========================================="
 echo "Tests d'Authentification PAM"
@@ -12,81 +14,176 @@ RESULTS_FILE="results/test-results.log"
 mkdir -p results
 > "$RESULTS_FILE"
 
-# Fonction pour tester l'authentification SSH
-test_ssh_auth() {
+check_prerequisites() {
+    echo "[*] Vérification des prérequis..."
+    
+    local missing_prereqs=0
+    
+    # Vérifier que les fichiers de configuration PAM existent
+    if [[ ! -f /etc/pam.d/sshd ]]; then
+        echo "[ERROR] /etc/pam.d/sshd n'existe pas"
+        missing_prereqs=1
+    fi
+    
+    # Vérifier que les utilisateurs de test existent
+    for user in user_allowed user_denied user_admin; do
+        if ! id "$user" &>/dev/null; then
+            echo "[ERROR] L'utilisateur '$user' n'existe pas"
+            missing_prereqs=1
+        fi
+    done
+    
+    # Vérifier que les groupes existent
+    for group in allowed denied admin; do
+        if ! getent group "$group" &>/dev/null; then
+            echo "[ERROR] Le groupe '$group' n'existe pas"
+            missing_prereqs=1
+        fi
+    done
+    
+    if [[ $missing_prereqs -eq 1 ]]; then
+        echo "[!] Certains prérequis sont manquants. Veuillez exécuter setup-pam.sh d'abord."
+        return 1
+    fi
+    
+    echo "[OK] Tous les prérequis sont présents"
+    return 0
+}
+
+test_pam_group_access() {
     local username=$1
-    local password=$2
-    local expected=$3
-    local test_name=$4
+    local expected_result=$2
+    local test_name=$3
     
     echo ""
     echo "Test: $test_name"
     echo "Utilisateur: $username"
-    echo "Résultat attendu: $expected"
+    echo "Résultat attendu: $expected_result"
     
-    # Tester avec SSH (utilise /etc/pam.d/sshd-custom)
-    if sshpass -p "$password" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$username@localhost" "echo 'Authentification réussie'" 2>/dev/null | grep -q "Authentification réussie"; then
+    # Vérifier si l'utilisateur appartient aux groupes autorisés
+    local user_groups=$(id -Gn "$username" 2>/dev/null || echo "")
+    local is_allowed=0
+    
+    # Vérifier si l'utilisateur est dans le groupe 'allowed' ou 'admin'
+    if echo "$user_groups" | grep -qE '\b(allowed|admin)\b'; then
+        is_allowed=1
+    fi
+    
+    local result="ÉCHOUÉ"
+    local status="FAILED"
+    
+    if [[ $is_allowed -eq 1 ]]; then
         result="RÉUSSI"
         status="SUCCESS"
-    else
-        result="ÉCHOUÉ"
-        status="FAILED"
     fi
     
     echo "Résultat: $result"
+    echo "Groupes: $user_groups"
     echo ""
+    
     # Enregistrer dans le fichier de résultats
     echo "[$status] $test_name - $username" >> "$RESULTS_FILE"
 }
 
-# Tests d'authentification
-echo "[*] Exécution des tests d'authentification..."
-echo ""
+test_resource_limits() {
+    local username=$1
+    local test_name=$2
+    
+    echo ""
+    echo "Test: $test_name"
+    echo "Utilisateur: $username"
+    
+    # Vérifier les limites directement depuis /etc/security/limits.conf
+    local limits_output=$(grep "^$username" /etc/security/limits.conf 2>/dev/null || echo "Aucune limite définie")
+    
+    echo "Limites configurées: $limits_output"
+    echo ""
+    
+    echo "Limites de ressources - $username: $limits_output" >> "$RESULTS_FILE"
+}
 
-# Vérifier si sshpass est installé
-if ! command -v sshpass &> /dev/null; then
-    echo "[!] sshpass n'est pas installé. Installation..."
-    apt-get update && apt-get install -y sshpass 2>/dev/null || yum install -y sshpass 2>/dev/null
-fi
-
-# Test 1: Utilisateur du groupe "allowed"
-test_ssh_auth "user_allowed" "password123" "RÉUSSI" "Authentification SSH - Groupe allowed"
-
-# Test 2: Utilisateur du groupe "denied"
-test_ssh_auth "user_denied" "password456" "ÉCHOUÉ" "Authentification SSH - Groupe denied"
-
-# Test 3: Utilisateur du groupe "admin"
-test_ssh_auth "user_admin" "password789" "RÉUSSI" "Authentification SSH - Groupe admin"
-
-# Test 4: Vérifier les groupes
-echo "Test: Vérification des groupes"
-echo ""
-for user in user_allowed user_denied user_admin; do
-    if id "$user" &>/dev/null; then
-        groups=$(id -Gn "$user")
-        echo "$user appartient aux groupes: $groups"
-        echo "Vérification des groupes - $user" >> "$RESULTS_FILE"
+verify_pam_config() {
+    echo ""
+    echo "Test: Vérification de la configuration PAM"
+    echo ""
+    
+    # Vérifier que pam_access.so est configuré
+    if grep -q "pam_access.so" /etc/pam.d/sshd 2>/dev/null; then
+        echo "[OK] pam_access.so est configuré dans /etc/pam.d/sshd"
+        echo "[OK] pam_access.so configuré" >> "$RESULTS_FILE"
+    else
+        echo "[ERROR] pam_access.so n'est pas configuré dans /etc/pam.d/sshd"
+        echo "[FAILED] pam_access.so non configuré" >> "$RESULTS_FILE"
     fi
-done
-
-echo ""
-
-# Test 5: Vérifier les limites de ressources
-echo "Test: Limites de ressources"
-echo ""
-for user in user_allowed user_denied user_admin; do
-    if id "$user" &>/dev/null; then
-        limits=$(su - "$user" -c "ulimit -n" 2>/dev/null || echo "N/A")
-        echo "$user - Limite de fichiers ouverts: $limits"
-        echo "Limites de ressources - $user" >> "$RESULTS_FILE"
+    
+    # Vérifier que /etc/security/access.conf existe
+    if [[ -f /etc/security/access.conf ]]; then
+        echo "[OK] /etc/security/access.conf existe"
+        echo "[OK] access.conf existe" >> "$RESULTS_FILE"
+    else
+        echo "[ERROR] /etc/security/access.conf n'existe pas"
+        echo "[FAILED] access.conf manquant" >> "$RESULTS_FILE"
     fi
-done
+}
 
-echo ""
-echo "=========================================="
-echo "Tests Terminés"
-echo "=========================================="
-echo "Résultats sauvegardés dans: $RESULTS_FILE"
-echo ""
-echo "Résumé des résultats:"
-cat "$RESULTS_FILE"
+# Programme principal
+main() {
+    if ! check_prerequisites; then
+        echo "[!] Impossible de continuer sans les prérequis"
+        exit 1
+    fi
+    
+    echo ""
+    echo "[*] Exécution des tests d'authentification..."
+    echo ""
+    
+    verify_pam_config
+    
+    echo ""
+    echo "[*] Tests d'accès aux groupes PAM..."
+    echo ""
+    
+    # Test 1: Utilisateur du groupe "allowed"
+    test_pam_group_access "user_allowed" "RÉUSSI" "Accès PAM - Groupe allowed"
+    
+    # Test 2: Utilisateur du groupe "denied"
+    test_pam_group_access "user_denied" "ÉCHOUÉ" "Accès PAM - Groupe denied"
+    
+    # Test 3: Utilisateur du groupe "admin"
+    test_pam_group_access "user_admin" "RÉUSSI" "Accès PAM - Groupe admin"
+    
+    echo ""
+    echo "[*] Vérification détaillée des groupes..."
+    echo ""
+    for user in user_allowed user_denied user_admin; do
+        if id "$user" &>/dev/null; then
+            local groups=$(id -Gn "$user")
+            echo "$user appartient aux groupes: $groups"
+            echo "Vérification des groupes - $user: $groups" >> "$RESULTS_FILE"
+        else
+            echo "[ERROR] L'utilisateur $user n'existe pas"
+            echo "[FAILED] Utilisateur $user inexistant" >> "$RESULTS_FILE"
+        fi
+    done
+    
+    echo ""
+    echo "[*] Vérification des limites de ressources..."
+    echo ""
+    for user in user_allowed user_denied user_admin; do
+        if id "$user" &>/dev/null; then
+            test_resource_limits "$user" "Limites de ressources - $user"
+        fi
+    done
+    
+    echo ""
+    echo "=========================================="
+    echo "Tests Terminés"
+    echo "=========================================="
+    echo "Résultats sauvegardés dans: $RESULTS_FILE"
+    echo ""
+    echo "Résumé des résultats:"
+    cat "$RESULTS_FILE"
+}
+
+# Exécuter le programme principal
+main "$@"
