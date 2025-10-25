@@ -255,10 +255,10 @@ cat /etc/security/access.conf
 
 ### Problème : Limites de ressources non appliquées
 
-**Solution** : Vérifier que `pam_limits.so` est configuré dans `/etc/pam.d/sshd`
+**Solution** : Vérifier que `pam_limits.so` est configuré dans `/etc/pam.d/sshd-custom`
 
 ```bash
-grep pam_limits /etc/pam.d/sshd
+grep pam_limits /etc/pam.d/sshd-custom
 ```
 
 ### Problème : Utilisateur ne peut pas se connecter
