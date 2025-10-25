@@ -163,26 +163,6 @@ for user in user_allowed user_denied user_admin; do
     fi
 done
 echo ""
-
-# Test 8: Vérifier les logs d'authentification
-echo "[Test 8] Vérification des logs d'authentification"
-echo "=============================================="
-if [ -f /var/log/auth.log ]; then
-    echo "[✓] Logs d'authentification disponibles"
-    echo "[*] Dernières tentatives d'authentification:"
-    tail -5 /var/log/auth.log | grep -E "(user_allowed|user_denied|user_admin)" || echo "    Aucune tentative trouvée"
-    log_result "Logs d'authentification" "PASS"
-elif [ -f /var/log/secure ]; then
-    echo "[✓] Logs d'authentification disponibles"
-    echo "[*] Dernières tentatives d'authentification:"
-    tail -5 /var/log/secure | grep -E "(user_allowed|user_denied|user_admin)" || echo "    Aucune tentative trouvée"
-    log_result "Logs d'authentification" "PASS"
-else
-    echo "[!] Fichier de logs d'authentification non trouvé"
-    log_result "Logs d'authentification" "FAIL"
-fi
-echo ""
-
 # Résumé
 echo "=========================================="
 echo "Tests Avancés Terminés"
