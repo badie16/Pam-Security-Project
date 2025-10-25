@@ -150,10 +150,10 @@ sudo bash scripts/setup-pam.sh
 
 ```bash
 # Vérifier la configuration PAM
-grep pam_limits /etc/pam.d/sshd
+grep pam_limits /etc/pam.d/sshd-custom
 
 # Si absent, ajouter la ligne
-echo "session    required     pam_limits.so" | sudo tee -a /etc/pam.d/sshd
+echo "session    required     pam_limits.so" | sudo tee -a /etc/pam.d/sshd-custom
 ```
 
 ### Problème : Utilisateur ne peut pas se connecter
@@ -189,7 +189,7 @@ su - username -c "ulimit -a"
 tail -f /var/log/auth.log
 
 # Vérifier la configuration PAM
-cat /etc/pam.d/sshd
+cat /etc/pam.d/sshd-custom
 
 # Vérifier les règles d'accès
 cat /etc/security/access.conf
