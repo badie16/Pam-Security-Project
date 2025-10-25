@@ -41,9 +41,18 @@ Ce projet a mis en place avec succès un système de sécurité PAM (Pluggable A
 - ✓ Configuration des limites de ressources
 - ✓ Tests d'authentification complets
 - ✓ Documentation technique complète
+- ✓ Scripts d'automatisation (7 scripts)
 
+### Captures d'Écran Incluses
+- **15 captures d'écran** documentant chaque étape d'exécution
+- **Séquence complète** : Configuration → Création → Validation → Tests → Audit → Nettoyage
+
+### Livrables
+- **Code source** : 7 scripts d'automatisation
+- **Documentation** : 5 fichiers Markdown complets
+- **Captures d'écran** : 15 images documentant l'exécution
+- **Rapport final** : Ce document complet
 ---
-
 ## 1. Architecture Implémentée
 ```
 Tentative de connexion (SSH, login, sudo)
@@ -461,35 +470,4 @@ Ce projet a démontré avec succès la mise en place d'un système de sécurité
 - **[GUIDE_UTILISATION.md](GUIDE_UTILISATION.md)** - Guide pratique pour les utilisateurs
 
 ---
-
----
-
-##  Résumé pour le Professeur
-
-### Objectifs du Projet
-Ce projet démontre la mise en place d'un système de sécurité PAM (Pluggable Authentication Modules) avec gestion des groupes d'utilisateurs sous Linux.
-
-### Réalisations Techniques
-- ✅ Configuration complète du système PAM
-- ✅ Création et gestion de 3 groupes d'utilisateurs (allowed, denied, admin)
-- ✅ Implémentation de règles d'accès granulaire
-- ✅ Configuration des limites de ressources
-- ✅ Tests d'authentification complets
-- ✅ Audit de sécurité approfondi
-- ✅ Scripts d'automatisation (7 scripts)
-- ✅ Documentation technique complète
-
-### Captures d'Écran Incluses
-- **15 captures d'écran** documentant chaque étape d'exécution
-- **Séquence complète** : Configuration → Création → Validation → Tests → Audit → Nettoyage
-- **Preuves visuelles** de l'exécution réussie de tous les scripts
-
-### Livrables
-- **Code source** : 7 scripts d'automatisation
-- **Documentation** : 5 fichiers Markdown complets
-- **Captures d'écran** : 15 images documentant l'exécution
-- **Rapport final** : Ce document complet
-
----
-
 
