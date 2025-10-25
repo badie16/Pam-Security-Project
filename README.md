@@ -47,9 +47,8 @@ Mettre en place un système de contrôle d'accès basé sur PAM (Pluggable Authe
 #### Modules PAM Utilisés
 
 1. **pam_unix.so** : Authentification standard Unix/Linux
-2. **pam_group.so** : Gestion des groupes et permissions
-3. **pam_access.so** : Contrôle d'accès basé sur les règles
-4. **pam_limits.so** : Limitation des ressources par utilisateur
+2. **pam_access.so** : Contrôle d'accès basé sur les règles
+3. **pam_limits.so** : Limitation des ressources par utilisateur
 
 ### 3. Structure des Groupes
 
@@ -105,11 +104,9 @@ Tentative de connexion
     ↓
 [1] Vérification des identifiants (pam_unix.so)
     ↓
-[2] Vérification du groupe (pam_group.so)
+[2] Contrôle d'accès (pam_access.so)
     ↓
-[3] Vérification des règles d'accès (pam_access.so)
-    ↓
-[4] Application des limites (pam_limits.so)
+[3] Application des limites (pam_limits.so)
     ↓
 Authentification réussie/échouée
 ```

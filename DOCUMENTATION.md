@@ -28,7 +28,7 @@ Application (SSH, login, sudo)
     ↓
 PAM Framework
     ↓
-Modules PAM (pam_unix, pam_group, pam_access, etc.)
+Modules PAM (pam_unix, pam_access, pam_limits, etc.)
     ↓
 Système d'authentification (passwd, shadow, groupes)
 ```
@@ -43,12 +43,6 @@ Système d'authentification (passwd, shadow, groupes)
   - `nullok` : Autoriser les mots de passe vides
   - `try_first_pass` : Utiliser le mot de passe précédent
 
-### pam_group.so
-
-- **Fonction** : Gestion des groupes et permissions
-- **Configuration** : `auth required pam_group.so use_first_pass`
-- **Paramètres** :
-  - `use_first_pass` : Utiliser le mot de passe précédent
 
 ### pam_access.so
 
@@ -163,16 +157,7 @@ Mot de passe correct ? → Continuer
 Mot de passe incorrect ? → Échouer
 ```
 
-### Étape 2 : Vérification du Groupe
-
-```
-pam_group.so vérifie l'appartenance au groupe
-    ↓
-Utilisateur dans un groupe autorisé ? → Continuer
-Utilisateur dans un groupe refusé ? → Échouer
-```
-
-### Étape 3 : Contrôle d'Accès
+### Étape 2 : Contrôle d'Accès
 
 ```
 pam_access.so consulte /etc/security/access.conf
@@ -181,7 +166,7 @@ Règle d'accès autorise ? → Continuer
 Règle d'accès refuse ? → Échouer
 ```
 
-### Étape 4 : Application des Limites
+### Étape 3 : Application des Limites
 
 ```
 pam_limits.so applique les limites de ressources

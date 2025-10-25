@@ -74,15 +74,11 @@ Tentative de connexion (SSH, login, sudo)
     └─ Consulte /etc/shadow
     └─ Valide le mot de passe
     ↓
-[2] pam_group.so - Vérification du groupe
-    └─ Vérifie l'appartenance au groupe
-    └─ Applique les règles du groupe
-    ↓
-[3] pam_access.so - Contrôle d'accès
+[2] pam_access.so - Contrôle d'accès
     └─ Consulte /etc/security/access.conf
     └─ Applique les règles d'accès
     ↓
-[4] pam_limits.so - Limites de ressources
+[3] pam_limits.so - Limites de ressources
     └─ Consulte /etc/security/limits.conf
     └─ Applique les limites
     ↓
@@ -438,7 +434,6 @@ ssh user_admin@localhost
 | Module        | Statut      |
 | ------------- | ----------- |
 | pam_unix.so   | ✓ Configuré |
-| pam_group.so  | ✓ Configuré |
 | pam_access.so | ✓ Configuré |
 | pam_limits.so | ✓ Configuré |
 
