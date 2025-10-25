@@ -71,17 +71,18 @@ Utilisateurs
 
 ### 4. Fichiers de Configuration PAM
 
-#### `/etc/pam.d/sshd` (SSH)
+#### `/etc/pam.d/sshd-custom` (SSH)
 
 ```bash
 # Authentification standard
 auth       required     pam_unix.so nullok try_first_pass
-# Vérification du groupe
-auth       required     pam_group.so use_first_pass
-# Contrôle d'accès
+# Contrôle d'accès basé sur les groupes (via access.conf)
 auth       required     pam_access.so
 # Gestion des sessions
 session    required     pam_limits.so
+session    required     pam_unix.so
+# Mots de passe
+password   required     pam_unix.so obscure sha512 rounds=5000
 ```
 
 #### `/etc/security/access.conf` (Règles d'accès)
@@ -196,9 +197,14 @@ pam-security-project/
 │   ├── access.conf                   # Règles d'accès
 │   ├── limits.conf                   # Limites de ressources
 │   └── pam-sshd.conf                 # Configuration PAM pour SSH
-└── results/
-    ├── test-results.log              # Résultats des tests
-    └── configuration-report.txt      # Rapport de configuration
+└── screenshot/
+    ├── 1_configuration.png          # Configuration PAM
+    ├── 2_create_users.png           # Création des utilisateurs
+    ├── 3_validation.png             # Validation de la configuration
+    ├── 4_test_auth.png              # Tests d'authentification
+    ├── 5_test_adv.png              # Tests avancés
+    ├── 6_secu_audit.png             # Audit de sécurité
+    └── 7_cleanUp.png                # Nettoyage
 ```
 
 ## Sécurité

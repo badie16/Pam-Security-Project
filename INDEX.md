@@ -23,6 +23,14 @@ pam-security-project/
 │   ├── access.conf
 │   ├── limits.conf
 │   └── pam-sshd.conf
+├── screenshot/                # Captures d'écran
+│   ├── 1_configuration.png
+│   ├── 2_create_users.png
+│   ├── 3_validation.png
+│   ├── 4_test_auth.png
+│   ├── 5_test_adv.png
+│   ├── 6_secu_audit.png
+│   └── 7_cleanUp.png
 └── scripts/                   # Scripts d'automatisation
     ├── setup-pam.sh
     ├── create-test-users.sh
@@ -70,6 +78,15 @@ pam-security-project/
 - [Tests d'authentification](GUIDE_UTILISATION.md#2-tests-dauthentification)
 - [Audit de sécurité](GUIDE_UTILISATION.md#2-tests-dauthentification)
 - [Résultats des tests](RAPPORT_RESULTATS.md#4-résultats-des-tests)
+
+### Captures d'Écran
+- [Configuration PAM](screenshot/1_configuration.png)
+- [Création des utilisateurs](screenshot/2_create_users.png)
+- [Validation de la configuration](screenshot/3_validation.png)
+- [Tests d'authentification](screenshot/4_test_auth.png)
+- [Tests avancés](screenshot/5_test_adv.png)
+- [Audit de sécurité](screenshot/6_secu_audit.png)
+- [Nettoyage](screenshot/7_cleanUp.png)
 
 ### Dépannage
 - [Problèmes courants](GUIDE_UTILISATION.md#dépannage)
