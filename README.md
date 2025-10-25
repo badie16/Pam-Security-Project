@@ -144,7 +144,21 @@ bash scripts/validate-config.sh
 ```bash
 bash scripts/test-authentication.sh
 ```
+5. **Exécuter les tests avancés**
 
+```bash
+   bash scripts/advanced-tests.sh
+```
+
+6. **Exécuter l'audit de sécurité**
+```bash
+   bash scripts/security-audit.sh
+```
+7. **Nettoyage**
+
+```bash
+sudo bash scripts/cleanup.sh
+```
 ## Résultats Attendus
 
 ### Cas de Test 1 : Utilisateur du groupe "allowed"
