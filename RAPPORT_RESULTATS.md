@@ -151,15 +151,13 @@ Authentification réussie/échouée
 #### `/etc/pam.d/sshd-custom`
 
 ```
-# Authentification
+# Authentification standard
 auth       required     pam_unix.so nullok try_first_pass
-auth       required     pam_group.so use_first_pass
+# Contrôle d'accès basé sur les groupes (via access.conf)
 auth       required     pam_access.so
-
-# Sessions
+# Gestion des sessions
 session    required     pam_limits.so
 session    required     pam_unix.so
-
 # Mots de passe
 password   required     pam_unix.so obscure sha512 rounds=5000
 ```
