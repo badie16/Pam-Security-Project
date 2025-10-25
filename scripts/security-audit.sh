@@ -58,13 +58,17 @@ echo ""
 # Audit 2: Vérifier les utilisateurs sans mot de passe
 echo "[Audit 2] Vérification des utilisateurs sans mot de passe"
 echo "========================================================"
-echo "[*] Utilisateurs avec mot de passe vide:"
-awk -F: '($2 == "" || $2 == "!") {print $1}' /etc/shadow | while read user; do
-    echo "    [!] $user"
-    audit_log "Utilisateur sans mot de passe: $user" "WARN"
-done
-echo ""
+echo "[*] Utilisateurs avec mot de passe vide (UID >= 1000):"
 
+awk -F: '($2 == "" || $2 == "!") {print $1}' /etc/shadow | while read user; do
+    uid=$(id -u "$user" 2>/dev/null || echo 0)
+    if [[ $uid -ge 1000 ]]; then
+        echo "    [!] $user (UID=$uid)"
+        audit_log "Utilisateur sans mot de passe: $user (UID=$uid)" "WARN"
+    fi
+done
+
+echo ""
 # Audit 3: Vérifier les utilisateurs avec UID 0
 echo "[Audit 3] Vérification des utilisateurs avec UID 0"
 echo "=================================================="
