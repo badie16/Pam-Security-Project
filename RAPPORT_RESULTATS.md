@@ -20,11 +20,10 @@
 2. [Architecture Implémentée](#1-architecture-implémentée)
 3. [Configuration Détaillée](#2-configuration-détaillée)
 4. [Utilisateurs de Test](#3-utilisateurs-de-test)
-5. [Exécution du Projet - Captures d'Écran](#5-exécution-du-projet---captures-décran)
-6. [Résultats des Tests](#6-résultats-des-tests)
-7. [Audit de Sécurité](#7-audit-de-sécurité)
-8. [Instructions d'Installation](#8-instructions-dinstallation)
-9. [Conclusion](#9-conclusion)
+5. [Exécution du Projet - Captures d'Écran](#4-exécution-du-projet---captures-décran)
+6. [Résultats des Tests](#5-résultats-des-tests)
+7. [Audit de Sécurité](#6-audit-de-sécurité)
+8. [Conclusion](#7-conclusion)
 
 ---
 
@@ -180,9 +179,9 @@ admin:x:1003:user_admin
 
 ---
 
-## 5. Exécution du Projet - Captures d'Écran
+## 4. Exécution du Projet - Captures d'Écran
 
-### 5.1 Étape 1 : Configuration PAM
+### 4.1 Étape 1 : Configuration PAM
 
 **Script exécuté** : `scripts/setup-pam.sh`
 
@@ -192,7 +191,7 @@ Cette étape configure le système PAM avec les groupes d'utilisateurs et les r�
 
 **Résultat** : Configuration PAM réussie avec création des groupes `allowed`, `denied`, et `admin`.
 
-### 5.2 Étape 2 : Création des Utilisateurs de Test
+### 4.2 Étape 2 : Création des Utilisateurs de Test
 
 **Script exécuté** : `scripts/create-test-users.sh`
 
@@ -207,7 +206,7 @@ Cette étape crée les utilisateurs de test pour chaque groupe.
 - `user_denied` (groupe denied)  
 - `user_admin` (groupe admin)
 
-### 5.3 Étape 3 : Validation de la Configuration
+### 4.3 Étape 3 : Validation de la Configuration
 
 **Script exécuté** : `scripts/validate-config.sh`
 
@@ -217,7 +216,7 @@ Cette étape vérifie que tous les composants sont correctement configurés.
 
 **Résultat** : Configuration validée avec succès.
 
-### 5.4 Étape 4 : Tests d'Authentification
+### 4.4 Étape 4 : Tests d'Authentification
 
 **Script exécuté** : `scripts/test-authentication.sh`
 
@@ -234,7 +233,7 @@ Le fichier suivant contient les résultats détaillés obtenus lors de l'exécut
 
 **Résultat** : Tests d'authentification réussis pour tous les groupes.
 
-### 5.5 Étape 5 : Tests Avancés
+### 4.5 Étape 5 : Tests Avancés
 
 **Script exécuté** : `scripts/advanced-tests.sh`
 
@@ -250,7 +249,7 @@ Le fichier suivant présente un extrait des résultats détaillés générés lo
 
 **Résultat** : Tests avancés réussis avec vérification complète du système.
 
-### 5.6 Étape 6 : Audit de Sécurité
+### 4.6 Étape 6 : Audit de Sécurité
 
 **Script exécuté** : `scripts/security-audit.sh`
 
@@ -266,7 +265,7 @@ Le fichier ci-dessous présente un extrait des résultats détaillés issus de l
 
 **Résultat** : Audit de sécurité réussi avec toutes les vérifications passées.
 
-### 5.7 Étape 7 : Nettoyage
+### 4.7 Étape 7 : Nettoyage
 
 **Script exécuté** : `scripts/cleanup.sh`
 
@@ -279,9 +278,9 @@ Cette étape nettoie le système et restaure l'état initial.
 
 ---
 
-## 6. Résultats des Tests
+## 5. Résultats des Tests
 
-### 6.1 Test 1 : Authentification - Groupe "allowed"
+### 5.1 Test 1 : Authentification - Groupe "allowed"
 
 **Objectif** : Vérifier que les utilisateurs du groupe "allowed" peuvent se connecter
 
@@ -303,7 +302,7 @@ su - user_allowed
 - Contrôle d'accès : ✓ Autorisé
 - Limites appliquées : ✓ Appliquées
 
-### 6.2 Test 2 : Authentification - Groupe "denied"
+### 5.2 Test 2 : Authentification - Groupe "denied"
 
 **Objectif** : Vérifier que les utilisateurs du groupe "denied" ne peuvent pas se connecter
 
@@ -325,7 +324,7 @@ su - user_denied
 - Contrôle d'accès : ✗ Refusé (comme prévu)
 - Message d'erreur : "Permission denied"
 
-### 6.3 Test 3 : Authentification - Groupe "admin"
+### 5.3 Test 3 : Authentification - Groupe "admin"
 
 **Objectif** : Vérifier que les administrateurs peuvent se connecter
 
@@ -347,7 +346,7 @@ su - user_admin
 - Contrôle d'accès : ✓ Autorisé
 - Limites appliquées : ✓ Appliquées (élevées)
 
-### 6.4 Test 4 : Limites de Ressources
+### 5.4 Test 4 : Limites de Ressources
 
 **Objectif** : Vérifier que les limites de ressources sont appliquées correctement
 
@@ -374,7 +373,7 @@ su - user_admin -c "ulimit -n"
 | user_denied | 100 | 100 | ✓ RÉUSSI |
 | user_admin | 65536 | 65536 | ✓ RÉUSSI |
 
-### 6.5 Test 5 : Accès SSH
+### 5.5 Test 5 : Accès SSH
 
 **Objectif** : Vérifier que les règles d'accès SSH sont appliquées
 
@@ -396,9 +395,9 @@ ssh user_admin@localhost
 
 ---
 
-## 7. Audit de Sécurité
+## 6. Audit de Sécurité
 
-### 7.1 Vérification des Permissions
+### 6.1 Vérification des Permissions
 
 | Fichier                   | Permission | Statut    |
 | ------------------------- | ---------- | --------- |
@@ -408,13 +407,13 @@ ssh user_admin@localhost
 | /etc/security/access.conf | 644        | ✓ Correct |
 | /etc/security/limits.conf | 644        | ✓ Correct |
 
-### 7.2 Vérification des Utilisateurs
+### 6.2 Vérification des Utilisateurs
 
 - Utilisateurs sans mot de passe : ✓ Aucun
 - Utilisateurs avec UID 0 : ✓ Seulement root
 - Groupes vides : ✓ Aucun
 
-### 7.3 Vérification des Modules PAM
+### 6.3 Vérification des Modules PAM
 
 | Module        | Statut      |
 | ------------- | ----------- |
@@ -424,7 +423,7 @@ ssh user_admin@localhost
 
 ---
 
-## 8. Conclusion
+## 7. Conclusion
 
 Ce projet a démontré avec succès la mise en place d'un système de sécurité robuste basé sur PAM avec gestion des groupes d'utilisateurs. Les résultats des tests confirment que :
 
