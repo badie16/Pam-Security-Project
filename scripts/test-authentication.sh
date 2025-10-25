@@ -88,19 +88,32 @@ test_pam_group_access() {
 test_resource_limits() {
     local username=$1
     local test_name=$2
-    
+
     echo ""
     echo "Test: $test_name"
     echo "Utilisateur: $username"
-    
-    # Vérifier les limites directement depuis /etc/security/limits.conf
-    local limits_output=$(grep "^$username" /etc/security/limits.conf 2>/dev/null || echo "Aucune limite définie")
-    
-    echo "Limites configurées: $limits_output"
+
+    # Récupérer les groupes de l'utilisateur
+    local user_groups
+    user_groups=$(id -Gn "$username" 2>/dev/null || echo "")
+
+    # Construire une regex pour les groupes (ex: @allowed|@admin)
+    local group_pattern
+    group_pattern=$(echo "$user_groups" | sed 's/ /|@/g')
+    group_pattern="@${group_pattern}"
+
+    # Chercher les limites définies pour l'utilisateur OU ses groupes
+    local limits_output
+    limits_output=$(grep -E "^(($username|$group_pattern))\b" /etc/security/limits.conf 2>/dev/null || echo "Aucune limite définie")
+
+    echo "Groupes de l'utilisateur: $user_groups"
+    echo "Limites configurées:"
+    echo "$limits_output"
     echo ""
-    
+
     echo "Limites de ressources - $username: $limits_output" >> "$RESULTS_FILE"
 }
+
 
 verify_pam_config() {
     echo ""
