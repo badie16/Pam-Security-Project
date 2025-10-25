@@ -1,7 +1,13 @@
+![logo](screenshot/logo.png)
 # Rapport de Résultats - Projet PAM
 ## Compte-Rendu Complet avec Captures d'Écran
 
-**Étudiants** : Badie BAHIDA  , EL Hasnaoui Fatima ezzahra , ALMANANI Said
+**Étudiants** : 
+```c
+"BAHIDA Badie"
+"EL Hasnaoui Fatima ezzahra"
+"ALMANANI Said"
+```
 **Date** : 21 Janvier 2025  
 **Projet** : Système de Sécurité PAM avec Gestion des Groupes d'Utilisateurs  
 **Version** : 2.0  
