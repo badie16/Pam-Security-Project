@@ -1,10 +1,11 @@
 # Rapport de Résultats - Projet PAM
 ## Compte-Rendu Complet avec Captures d'Écran
 
-**Étudiant** : Badie BAHIDA  
+**Étudiants** : Badie BAHIDA  , EL Hasnaoui Fatima ezzahra , ALMANANI Said
 **Date** : 21 Janvier 2025  
 **Projet** : Système de Sécurité PAM avec Gestion des Groupes d'Utilisateurs  
-**Version** : 1.0  
+**Version** : 2.0  
+**Statut** : ✓ Projet complété avec succès  
 
 ---
 
@@ -38,35 +39,6 @@ Ce projet a mis en place avec succès un système de sécurité PAM (Pluggable A
 ---
 
 ## 1. Architecture Implémentée
-
-### 1.1 Composants Principaux
-
-```
-┌─────────────────────────────────────────┐
-│     Application (SSH, login, sudo)      │
-└────────────────┬────────────────────────┘
-                 │
-┌────────────────▼────────────────────────┐
-│         PAM Framework                   │
-└────────────────┬────────────────────────┘
-                 │
-    ┌────────────┼────────────┬──────────┐
-    │            │            │          │
-┌───▼──┐  ┌─────▼──┐  ┌──────▼──┐  ┌───▼──┐
-│pam_  │  │pam_    │  │pam_     │  │pam_  │
-│unix  │  │group   │  │access   │  │limits│
-└──────┘  └────────┘  └─────────┘  └──────┘
-    │            │            │          │
-    └────────────┼────────────┴──────────┘
-                 │
-┌────────────────▼────────────────────────┐
-│  Système d'authentification Linux       │
-│  (/etc/passwd, /etc/shadow, /etc/group)│
-└─────────────────────────────────────────┘
-```
-
-### 1.2 Flux d'Authentification
-
 ```
 Tentative de connexion (SSH, login, sudo)
     ↓
@@ -239,8 +211,8 @@ Cette étape teste l'authentification pour chaque groupe d'utilisateurs.
 
 ![Tests d'Authentification](screenshot/4_test_auth.png)
 ![Tests d'Authentification - Suite](screenshot/4_test_auth_Suite.png)
-**Affichage du fichier qui stocke les résultats des tests :**
 
+**Affichage du fichier qui stocke les résultats des tests :**
 Le fichier suivant contient les résultats détaillés obtenus lors de l'exécution des tests d'authentification pour chaque groupe d'utilisateurs. Vous trouverez ci-dessous une capture de ce fichier tel qu'il a été généré pendant la phase de tests :
 
 
@@ -256,8 +228,8 @@ Cette étape effectue des tests avancés de sécurité et de configuration.
 
 ![Tests Avancés](screenshot/5_test_adv.png)
 ![Tests Avancés - Suite](screenshot/5_test_adv_Suite.png)
-**Affichage du fichier qui stocke les résultats des tests avancés :**
 
+**Affichage du fichier qui stocke les résultats des tests avancés :**
 Le fichier suivant présente un extrait des résultats détaillés générés lors de l'exécution du script de tests avancés. Il apporte la preuve que la configuration PAM, les règles d'accès et les limitations de ressources sont effectivement appliquées pour chaque type d'utilisateur.
 
 ![Résultats des Tests Avancés - Fichier de Résultats](screenshot/5_test_adv_Suite_file.png)
@@ -272,11 +244,11 @@ Cette étape effectue un audit complet de sécurité du système.
 
 ![Audit de Sécurité](screenshot/6_secu_audit.png)
 ![Audit de Sécurité - Suite](screenshot/6_secu_audit_Suite.png)
+
 **Affichage du fichier qui stocke les résultats de l'audit de sécurité :**
+Le fichier ci-dessous présente un extrait des résultats détaillés issus de l'exécution du script d'audit de sécurité. 
 
-Le fichier ci-dessous présente un extrait des résultats détaillés issus de l'exécution du script d'audit de sécurité. Il montre la conformité de la configuration PAM, la bonne gestion des permissions sur les fichiers sensibles (/etc/pam.d, /etc/security).
-
-![Audit de Sécurité - Extrait du Fichier de Résultats](screenshot/6_secu_audit_Suite_file_extract.png)
+![Audit de Sécurité - Extrait du Fichier de Résultats](screenshot/6_secu_audit_Suite_file.png)
 
 **Résultat** : Audit de sécurité réussi avec toutes les vérifications passées.
 
@@ -287,7 +259,6 @@ Le fichier ci-dessous présente un extrait des résultats détaillés issus de l
 Cette étape nettoie le système et restaure l'état initial.
 
 ![Nettoyage](screenshot/7_cleanUp.png)
-
 ![Nettoyage - Suite](screenshot/7_cleanUp_Suite.png)
 
 **Résultat** : Nettoyage réussi avec restauration complète du système.
@@ -439,63 +410,7 @@ ssh user_admin@localhost
 
 ---
 
-
-## 8. Instructions d'Installation
-
-### 8.1 Prérequis
-
-- Système Linux (Ubuntu/Debian ou CentOS/RHEL)
-- Accès root
-- Connaissance de base de Linux
-
-### 8.2 Étapes d'Installation
-
-1. **Exécuter le script de setup**
-
-   ```bash
-   sudo bash scripts/setup-pam.sh
-   ```
-
-2. **Créer les utilisateurs de test**
-
-   ```bash
-   sudo bash scripts/create-test-users.sh
-   ```
-
-3. **Valider la configuration**
-
-   ```bash
-   bash scripts/validate-config.sh
-   ```
-
-4. **Exécuter les tests d'authentification**
-
-   ```bash
-   bash scripts/test-authentication.sh
-   ```
-
-5. **Exécuter les tests avancés**
-
-   ```bash
-   bash scripts/advanced-tests.sh
-   ```
-
-6. **Exécuter l'audit de sécurité**
-   ```bash
-   bash scripts/security-audit.sh
-   ```
-
-### 8.3 Nettoyage
-
-Pour supprimer la configuration et les utilisateurs de test :
-
-```bash
-sudo bash scripts/cleanup.sh
-```
-
----
-
-## 9. Conclusion
+## 8. Conclusion
 
 Ce projet a démontré avec succès la mise en place d'un système de sécurité robuste basé sur PAM avec gestion des groupes d'utilisateurs. Les résultats des tests confirment que :
 
@@ -506,7 +421,6 @@ Ce projet a démontré avec succès la mise en place d'un système de sécurité
 5. ✓ Les règles d'accès fonctionnent comme prévu
 6. ✓ La configuration est sécurisée et auditable
 
-La configuration PAM est simple, flexible et facilement extensible pour des besoins plus complexes. Elle peut être adaptée pour d'autres services (login, sudo, etc.) et intégrée avec d'autres systèmes d'authentification (LDAP, Kerberos, etc.).
 
 ### Points Clés
 
@@ -564,13 +478,6 @@ Ce projet démontre la mise en place d'un système de sécurité PAM (Pluggable 
 - **Séquence complète** : Configuration → Création → Validation → Tests → Audit → Nettoyage
 - **Preuves visuelles** de l'exécution réussie de tous les scripts
 
-### Compétences Développées
-1. **Administration Linux** : Gestion des utilisateurs et groupes
-2. **Sécurité Système** : Configuration PAM et contrôle d'accès
-3. **Scripting Bash** : Automatisation des tâches
-4. **Audit de Sécurité** : Vérification des configurations
-5. **Documentation Technique** : Rédaction de guides complets
-
 ### Livrables
 - **Code source** : 7 scripts d'automatisation
 - **Documentation** : 5 fichiers Markdown complets
@@ -579,7 +486,4 @@ Ce projet démontre la mise en place d'un système de sécurité PAM (Pluggable 
 
 ---
 
-**Date du rapport** : 21 Janvier 2025  
-**Étudiant** : Badie BAHIDA  
-**Version** : 1.0  
-**Statut** : ✓ Projet complété avec succès  
+
