@@ -447,7 +447,7 @@ Ce projet a démontré avec succès la mise en place d'un système de sécurité
 
 ---
 
-## 📚 Navigation
+##  Navigation
 
 - **[INDEX.md](INDEX.md)** - Navigation et guide de lecture
 - **[README.md](README.md)** - Vue d'ensemble du projet
@@ -458,7 +458,7 @@ Ce projet a démontré avec succès la mise en place d'un système de sécurité
 
 ---
 
-## 📋 Résumé pour le Professeur
+##  Résumé pour le Professeur
 
 ### Objectifs du Projet
 Ce projet démontre la mise en place d'un système de sécurité PAM (Pluggable Authentication Modules) avec gestion des groupes d'utilisateurs sous Linux.

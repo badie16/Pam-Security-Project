@@ -261,7 +261,7 @@ Ce projet démontre comment mettre en place un système de sécurité robuste ba
 
 ---
 
-## 📚 Navigation
+##  Navigation
 
 - **[INDEX.md](INDEX.md)** - Navigation et guide de lecture
 - **[README.md](README.md)** - Vue d'ensemble du projet
