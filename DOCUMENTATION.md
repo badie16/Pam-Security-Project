@@ -271,5 +271,6 @@ Ce projet démontre comment mettre en place un système de sécurité robuste ba
 ---
 
 **Dernière mise à jour** : 2025-01-21  
-**Version** : 1.0  
+**Version** : 2.0  
+**Statut** : ✓ Projet complété avec succès  
 **Auteur** : Badie BAHIDA

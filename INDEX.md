@@ -140,5 +140,5 @@ sudo bash scripts/cleanup.sh
 ---
 
 **Dernière mise à jour** : 2025-01-21  
-**Version** : 1.0  
-**Auteur** : Badie BAHIDA
+**Version** : 2.0  
+**Statut** : ✓ Projet complété avec succès  

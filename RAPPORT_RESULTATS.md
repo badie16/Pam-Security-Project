@@ -10,8 +10,7 @@
 ```
 **Date** : 21 Janvier 2025  
 **Projet** : Système de Sécurité PAM avec Gestion des Groupes d'Utilisateurs  
-**Version** : 2.0  
-**Statut** : ✓ Projet complété avec succès  
+
 
 ---
 
